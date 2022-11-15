@@ -1,0 +1,26 @@
+FROM nvcr.io/nvidia/pytorch:21.11-py3
+
+# update repo info
+RUN apt update -y
+
+RUN pip install --upgrade pip
+
+RUN pip install mpi4py h5py ruamel.yaml einops wandb timm
+
+ARG labia_gid
+ARG dev_id
+
+RUN addgroup --gid $labia_gid labia && useradd guibertf -u $dev_id -g $labia_gid --home /home/guibertf --create-home
+WORKDIR /home/guibertf/fourcastnet
+
+COPY utils utils
+COPY data_process data_process
+COPY networks networks
+COPY inference/inference.py /home/guibertf/fourcastnet/
+RUN chmod +x "/home/guibertf/fourcastnet/inference.py"
+RUN chown -R guibertf:labia /home/guibertf/fourcastnet
+USER guibertf
+ENV PYTHONPATH="."
+#python inference.py --run_num 0 --weights weights/backbone.ckpt --config=afno_backbone --override_dir=inference_results
+
+ENTRYPOINT ["python", "/home/guibertf/fourcastnet/inference.py", "--run_num", "0", "--weights", "weights/backbone.ckpt", "--config", "afno_backbone", "--override_dir", "inference_results"]

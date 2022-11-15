@@ -45,21 +45,12 @@
 #Animashree Anandkumar - California Institute of Technology, NVIDIA Corporation
 
 import os
-import sys
-import time
 import numpy as np
 import argparse
-sys.path.append(os.path.dirname(os.path.realpath(__file__)) + '/../')
-from numpy.core.numeric import False_
 import h5py
 import torch
-import torchvision
-from torchvision.utils import save_image
-import torch.nn as nn
-import torch.cuda.amp as amp
 import torch.distributed as dist
 from collections import OrderedDict
-from torch.nn.parallel import DistributedDataParallel
 import logging
 from utils import logging_utils
 from utils.weighted_acc_rmse import weighted_rmse_torch_channels, weighted_acc_torch_channels, unweighted_acc_torch_channels, weighted_acc_masked_torch_channels
@@ -67,8 +58,6 @@ logging_utils.config_logger()
 from utils.YParams import YParams
 from utils.data_loader_multifiles import get_data_loader
 from networks.afnonet import AFNONet
-import wandb
-import matplotlib.pyplot as plt
 import glob
 from datetime import datetime
 
@@ -337,7 +326,7 @@ if __name__ == '__main__':
     params['local_rank'] = 0
 
     logging_utils.log_to_file(logger_name=None, log_filename=os.path.join(expDir, 'inference_out.log'))
-    logging_utils.log_versions()
+    #logging_utils.log_versions()
     params.log()
 
     n_ics = params['n_initial_conditions']

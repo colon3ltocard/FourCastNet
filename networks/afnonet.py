@@ -1,22 +1,12 @@
 #reference: https://github.com/NVlabs/AFNO-transformer
 
-import math
 from functools import partial
-from collections import OrderedDict
-from copy import Error, deepcopy
-from re import S
-from numpy.lib.arraypad import pad
-import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-#from timm.data import IMAGENET_DEFAULT_MEAN, IMAGENET_DEFAULT_STD
 from timm.models.layers import DropPath, trunc_normal_
 import torch.fft
-from torch.nn.modules.container import Sequential
-from torch.utils.checkpoint import checkpoint_sequential
-from einops import rearrange, repeat
-from einops.layers.torch import Rearrange
+from einops import rearrange
 from utils.img_utils import PeriodicPad2d
 
 

@@ -51,10 +51,7 @@ import random
 import numpy as np
 from torch.utils.data import DataLoader, Dataset
 from torch.utils.data.distributed import DistributedSampler
-from torch import Tensor
 import h5py
-import math
-#import cv2
 from utils.img_utils import reshape_fields, reshape_precip
 
 
