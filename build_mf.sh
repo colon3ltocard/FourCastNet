@@ -5,10 +5,11 @@ set -eu
 CWD=$(basename "$PWD")
 CONTAINER_NAME="fourcastnet"
 CONFIG="$PWD"/config
-WEIGHTS_DIR=/media/frank/data/FourCastNet/FCN_weights_v0
-OUTPUT_DIR=/media/frank/data/FourCastNet/inference_results
-STATS_DIR=/media/frank/data/FourCastNet/stats_v0
-OOS_DIR=/media/frank/data/FourCastNet/out_of_sample
+SCRATCH_ROOT=/scratch/labia/guibertf/FourCastNet
+WEIGHTS_DIR=$SCRATCH_ROOT/FCN_weights_v0
+OUTPUT_DIR=$SCRATCH_ROOT/inference_results
+STATS_DIR=$SCRATCH_ROOT/stats_v0
+OOS_DIR=$SCRATCH_ROOT/out_of_sample
 
 build() {
     docker build . --tag "$CONTAINER_NAME" --build-arg dev_id=$(id -u)  --build-arg labia_gid=$(id -g) -f docker/Dockerfile.mf

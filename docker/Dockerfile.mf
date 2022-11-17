@@ -3,6 +3,8 @@ FROM nvcr.io/nvidia/pytorch:21.11-py3
 # update repo info
 RUN apt update -y
 
+COPY mf.crt /root/mf.crt
+ENV REQUESTS_CA_BUNDLE=/root/mf.crt
 RUN pip install --upgrade pip
 
 RUN pip install mpi4py h5py ruamel.yaml einops wandb timm
